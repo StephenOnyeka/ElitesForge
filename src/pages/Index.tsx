@@ -6,7 +6,10 @@ import TickerBar from "../components/TickerBar";
 import Footer from "../components/Footer";
 import CTABanner from "../components/CTABanner";
 import heroBg from "../assets/hero-bg.jpg";
-import heroVideoAsset from "../assets/hero-video.mp4.asset.json";
+// The original video was hosted on an external asset server.
+// Place a 'hero-video.mp4' file in your 'public/' directory and it will play automatically.
+// const heroVideoUrl = "/hero-video.mp4"; 
+const heroVideoUrl = "/video/hero-video.mp4"; 
 import gridBg from "../assets/grid-pattern-bg.jpg";
 import whyEtlBg from "../assets/why-etl-bg.jpg";
 
@@ -30,7 +33,7 @@ const HeroSection = () => (
   <section className="relative min-h-screen flex items-center overflow-hidden pt-24">
     <div className="absolute inset-0 z-0">
       <video autoPlay loop muted playsInline poster={heroBg} className="w-full h-full object-cover">
-        <source src={heroVideoAsset.url} type="video/mp4" />
+        <source src={heroVideoUrl} type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-background/70" />
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/60" />
@@ -273,7 +276,7 @@ const WhyETL = () => (
     </div>
     <div className="container relative z-10">
       <motion.h2 {...fadeUp} className="font-display text-3xl md:text-4xl text-foreground text-center mb-12">
-        WHO IS ETL FOR?
+        WHO IS ELITESFORGE FOR?
       </motion.h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         {[

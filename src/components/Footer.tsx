@@ -16,6 +16,7 @@ const Footer = () => (
         <div>
           <div className="font-display text-2xl tracking-wider text-foreground mb-2">
             ELITE TRADER <span className="text-gold-gradient">LEAGUE</span>
+            {/* ELITE TRADER <span className="text-gold-gradient">LEAGUE</span> */}
           </div>
           <p className="font-mono text-[10px] text-muted-foreground tracking-wider">
             BY ELITESFORGE
