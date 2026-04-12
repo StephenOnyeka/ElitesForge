@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import CTABanner from "../components/CTABanner";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import howItWorksHero from "../assets/how-it-works-hero.jpg";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -40,6 +41,7 @@ const HowItWorks = () => (
       headline="From Idea to Outcome — Every Trade Documented."
       subline="ETL's accountability system ensures your strategy is on record before you execute."
       breadcrumb="Home > How It Works"
+      backgroundImage={howItWorksHero}
       compact
     />
 
