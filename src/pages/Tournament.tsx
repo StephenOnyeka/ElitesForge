@@ -4,6 +4,7 @@ import TickerBar from "../components/TickerBar";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import CTABanner from "../components/CTABanner";
+import tournamentHero from "../assets/tournament-hero.jpg";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -35,6 +36,7 @@ const Tournament = () => (
       headline="THE RULES OF THE LEAGUE"
       subline="Every rule exists to ensure skill determines the standings."
       breadcrumb="Home > Tournament"
+      backgroundImage={tournamentHero}
       compact
     />
 

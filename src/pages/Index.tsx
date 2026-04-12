@@ -5,6 +5,10 @@ import Navbar from "../components/Navbar";
 import TickerBar from "../components/TickerBar";
 import Footer from "../components/Footer";
 import CTABanner from "../components/CTABanner";
+import heroBg from "../assets/hero-bg.jpg";
+import heroVideoAsset from "../assets/hero-video.mp4.asset.json";
+import gridBg from "../assets/grid-pattern-bg.jpg";
+import whyEtlBg from "../assets/why-etl-bg.jpg";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -16,12 +20,26 @@ const stagger = (i: number) => ({ transition: { delay: i * 0.1, duration: 0.5 } 
 
 // HERO
 const HeroSection = () => (
-  <section className="relative min-h-screen flex items-center grid-bg overflow-hidden pt-24">
+  <section className="relative min-h-screen flex items-center overflow-hidden pt-24">
+    {/* Video Background */}
+    <div className="absolute inset-0 z-0">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        poster={heroBg}
+        className="w-full h-full object-cover"
+      >
+        <source src={heroVideoAsset.url} type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 bg-background/70" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/60" />
+    </div>
+
     {/* Corner brackets */}
-    <div className="absolute top-24 left-8 w-16 h-16 border-t-2 border-l-2 border-primary/30" />
-    <div className="absolute top-24 right-8 w-16 h-16 border-t-2 border-r-2 border-primary/30" />
-    {/* Radial gold glow */}
-    <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-primary/5 rounded-full blur-[120px]" />
+    <div className="absolute top-24 left-8 w-16 h-16 border-t-2 border-l-2 border-primary/30 z-10" />
+    <div className="absolute top-24 right-8 w-16 h-16 border-t-2 border-r-2 border-primary/30 z-10" />
 
     <div className="container relative z-10">
       <motion.div {...fadeUp} {...stagger(0)} className="flex items-center gap-3 mb-6">
@@ -60,7 +78,7 @@ const HeroSection = () => (
         </Link>
       </motion.div>
 
-      <motion.div {...fadeUp} {...stagger(5)} className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-px gold-border">
+      <motion.div {...fadeUp} {...stagger(5)} className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-px gold-border bg-background/50">
         {[
           ["SEASON", "S01"],
           ["DURATION", "3MO"],
@@ -79,8 +97,12 @@ const HeroSection = () => (
 
 // PROBLEM STATEMENT
 const ProblemSection = () => (
-  <section className="py-20 md:py-28">
-    <div className="container">
+  <section className="relative py-20 md:py-28 overflow-hidden">
+    <div className="absolute inset-0 z-0">
+      <img src={gridBg} alt="" className="w-full h-full object-cover opacity-30" loading="lazy" />
+      <div className="absolute inset-0 bg-background/90" />
+    </div>
+    <div className="container relative z-10">
       <motion.h2 {...fadeUp} className="font-display text-3xl md:text-5xl text-foreground text-center mb-12">
         Most trading competitions reward luck.{" "}
         <span className="text-gold-gradient">ETL doesn't.</span>
@@ -91,7 +113,7 @@ const ProblemSection = () => (
           { problem: "Anonymity Abuse", solution: "Government ID + face verification required" },
           { problem: "No Accountability", solution: "Idea → Execution → Outcome — permanently recorded" },
         ].map((item, i) => (
-          <motion.div key={i} {...fadeUp} {...stagger(i)} className="gold-border p-6 bg-card">
+          <motion.div key={i} {...fadeUp} {...stagger(i)} className="gold-border p-6 bg-card/80">
             <p className="font-mono text-sm text-destructive line-through mb-3">❌ {item.problem}</p>
             <p className="font-body text-sm text-foreground">
               <span className="text-primary mr-2">✅</span>{item.solution}
@@ -105,7 +127,7 @@ const ProblemSection = () => (
 
 // HOW IT WORKS TEASER
 const HowItWorksTeaser = () => (
-  <section className="py-20 md:py-28 grid-bg">
+  <section className="py-20 md:py-28">
     <div className="container">
       <motion.h2 {...fadeUp} className="font-display text-3xl md:text-4xl text-foreground text-center mb-12">
         HOW ETL WORKS
@@ -185,7 +207,7 @@ const LeaderboardTeaser = () => {
   ];
 
   return (
-    <section className="py-20 md:py-28 grid-bg">
+    <section className="py-20 md:py-28">
       <div className="container">
         <motion.h2 {...fadeUp} className="font-display text-3xl md:text-4xl text-foreground text-center mb-12">
           LEADERBOARD PREVIEW
@@ -273,8 +295,12 @@ const AccessStrip = () => (
 
 // WHY ETL
 const WhyETL = () => (
-  <section className="py-20 md:py-28 grid-bg">
-    <div className="container">
+  <section className="relative py-20 md:py-28 overflow-hidden">
+    <div className="absolute inset-0 z-0">
+      <img src={whyEtlBg} alt="" className="w-full h-full object-cover opacity-20" loading="lazy" />
+      <div className="absolute inset-0 bg-background/85" />
+    </div>
+    <div className="container relative z-10">
       <motion.h2 {...fadeUp} className="font-display text-3xl md:text-4xl text-foreground text-center mb-12">
         WHO IS ETL FOR?
       </motion.h2>
@@ -284,7 +310,7 @@ const WhyETL = () => (
           { icon: "🏢", title: "Prop Firms & Sponsors", desc: "Discover verified talent, not social media noise" },
           { icon: "🎓", title: "Analysts & Educators", desc: "Showcase real results, not backtested theories" },
         ].map((card, i) => (
-          <motion.div key={i} {...fadeUp} {...stagger(i)} className="gold-border p-6 bg-card text-center">
+          <motion.div key={i} {...fadeUp} {...stagger(i)} className="gold-border p-6 bg-card/80 text-center">
             <span className="text-3xl mb-3 block">{card.icon}</span>
             <h3 className="font-display text-lg text-foreground">{card.title}</h3>
             <p className="font-body text-sm text-muted-foreground mt-2">{card.desc}</p>

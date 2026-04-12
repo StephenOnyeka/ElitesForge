@@ -5,6 +5,7 @@ import TickerBar from "../components/TickerBar";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import CTABanner from "../components/CTABanner";
+import leaderboardHero from "../assets/leaderboard-hero.jpg";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -31,6 +32,7 @@ const Leaderboard = () => (
       headline="The Only Leaderboard That Can't Be Faked."
       subline="Season 01 — 847 active traders"
       breadcrumb="Home > Leaderboard"
+      backgroundImage={leaderboardHero}
       compact
     />
 

@@ -5,11 +5,27 @@ interface PageHeroProps {
   subline?: string;
   breadcrumb?: string;
   compact?: boolean;
+  backgroundImage?: string;
 }
 
-const PageHero = ({ headline, subline, breadcrumb, compact }: PageHeroProps) => (
-  <section className={`relative grid-bg ${compact ? "pt-32 pb-16" : "pt-36 pb-20"}`}>
-    <div className="container">
+const PageHero = ({ headline, subline, breadcrumb, compact, backgroundImage }: PageHeroProps) => (
+  <section className={`relative overflow-hidden ${compact ? "pt-32 pb-16" : "pt-36 pb-20"}`}>
+    {/* Background image */}
+    {backgroundImage && (
+      <div className="absolute inset-0 z-0">
+        <img
+          src={backgroundImage}
+          alt=""
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-background/80" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+      </div>
+    )}
+    {!backgroundImage && <div className="absolute inset-0 grid-bg" />}
+
+    <div className="container relative z-10">
       {breadcrumb && (
         <p className="font-mono text-[10px] tracking-widest text-muted-foreground mb-4 uppercase">
           {breadcrumb}

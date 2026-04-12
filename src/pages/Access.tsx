@@ -5,6 +5,7 @@ import TickerBar from "../components/TickerBar";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import CTABanner from "../components/CTABanner";
+import accessHero from "../assets/access-hero.jpg";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -59,6 +60,7 @@ const Access = () => (
       headline="Transparency Is Earned. Here's How Access Works."
       subline="ETL uses progressive access to protect the integrity of the league."
       breadcrumb="Home > Access Levels"
+      backgroundImage={accessHero}
       compact
     />
 

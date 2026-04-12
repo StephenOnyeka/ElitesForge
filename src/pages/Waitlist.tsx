@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { MdCheck, MdArrowBack } from "react-icons/md";
+import waitlistBg from "../assets/waitlist-bg.jpg";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -37,9 +38,15 @@ const Waitlist = () => {
   };
 
   return (
-    <div className="bg-background min-h-screen">
+    <div className="bg-background min-h-screen relative">
+      {/* Full page background image */}
+      <div className="fixed inset-0 z-0">
+        <img src={waitlistBg} alt="" className="w-full h-full object-cover opacity-15" />
+        <div className="absolute inset-0 bg-background/80" />
+      </div>
+
       {/* Minimal Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-primary/30 bg-background">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-primary/30 bg-background/90">
         <div className="container flex h-16 items-center justify-center">
           <Link to="/" className="font-display text-2xl tracking-wider text-foreground">
             ELITE TRADER <span className="text-gold-gradient">LEAGUE</span>
@@ -47,7 +54,7 @@ const Waitlist = () => {
         </div>
       </nav>
 
-      <div className="pt-24 pb-16">
+      <div className="pt-24 pb-16 relative z-10">
         <div className="container">
           <AnimatePresence mode="wait">
             {!submitted ? (
@@ -81,6 +88,17 @@ const Waitlist = () => {
                   <motion.p {...fadeUp} transition={{ delay: 0.5 }} className="mt-8 font-mono text-sm text-primary">
                     847 traders already registered across 34 countries
                   </motion.p>
+
+                  {/* Trader image accent */}
+                  <motion.div {...fadeUp} transition={{ delay: 0.6 }} className="mt-8 relative hidden lg:block">
+                    <img
+                      src={waitlistBg}
+                      alt="Trading desk"
+                      className="w-full h-48 object-cover gold-border opacity-60"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
+                  </motion.div>
                 </div>
 
                 {/* Right Panel - Form */}
@@ -88,7 +106,7 @@ const Waitlist = () => {
                   onSubmit={handleSubmit}
                   {...fadeUp}
                   transition={{ delay: 0.2 }}
-                  className="gold-border bg-card p-6 md:p-8"
+                  className="gold-border bg-card/90 p-6 md:p-8"
                 >
                   <p className="font-mono text-[10px] tracking-widest text-muted-foreground mb-6">WAITLIST REGISTRATION</p>
 
@@ -198,7 +216,6 @@ const Waitlist = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 className="max-w-xl mx-auto text-center py-20"
               >
-                {/* Animated checkmark */}
                 <svg width="80" height="80" viewBox="0 0 80 80" className="mx-auto mb-8">
                   <circle cx="40" cy="40" r="36" fill="none" stroke="hsl(42 88% 55%)" strokeWidth="2" />
                   <path
@@ -231,7 +248,6 @@ const Waitlist = () => {
             )}
           </AnimatePresence>
 
-          {/* What Happens Next */}
           {!submitted && (
             <motion.section {...fadeUp} transition={{ delay: 0.5 }} className="mt-16 max-w-3xl mx-auto">
               <h3 className="font-display text-2xl text-foreground text-center mb-8">WHAT HAPPENS NEXT</h3>
