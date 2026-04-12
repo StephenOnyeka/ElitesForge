@@ -10,6 +10,7 @@ import Leaderboard from "./pages/Leaderboard.tsx";
 import Access from "./pages/Access.tsx";
 import Waitlist from "./pages/Waitlist.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import ThemeMusic from "./components/ThemeMusic.tsx";
 
 const queryClient = new QueryClient();
 
