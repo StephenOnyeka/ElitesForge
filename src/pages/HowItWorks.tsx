@@ -8,6 +8,9 @@ import CTABanner from "../components/CTABanner";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import howItWorksHero from "../assets/how-it-works-hero.jpg";
 
+const UNSPLASH_CHART_ANALYSIS = "https://images.unsplash.com/photo-1642790106117-e829e14a795f?w=800&q=80&auto=format&fit=crop";
+const UNSPLASH_TRADER_LAPTOP = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80&auto=format&fit=crop";
+
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
@@ -71,24 +74,36 @@ const HowItWorks = () => (
       </div>
     </section>
 
-    {/* Step by Step */}
+    {/* Step by Step with image */}
     <section className="py-16 grid-bg">
-      <div className="container max-w-3xl">
+      <div className="container max-w-4xl">
         <motion.h2 {...fadeUp} className="font-display text-3xl text-foreground text-center mb-12">STEP BY STEP</motion.h2>
-        {[
-          "Register and complete KYC verification",
-          "When ready to trade, open the Setup Submission form",
-          "Upload chart screenshot + write your analysis",
-          "Submit — your setup is now locked and timestamped",
-          "Execute up to 3 trades aligned with that setup",
-          "Results are automatically recorded and linked",
-          "Your idea, execution, and outcome become part of the public archive",
-        ].map((step, i) => (
-          <motion.div key={i} {...fadeUp} transition={{ delay: i * 0.05 }} className="flex gap-4 mb-4 p-3 border-b border-primary/10">
-            <span className="font-mono text-primary/40 text-lg">{String(i + 1).padStart(2, "0")}</span>
-            <p className="font-body text-foreground">{step}</p>
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+          <div className="lg:col-span-3">
+            {[
+              "Register and complete KYC verification",
+              "When ready to trade, open the Setup Submission form",
+              "Upload chart screenshot + write your analysis",
+              "Submit — your setup is now locked and timestamped",
+              "Execute up to 3 trades aligned with that setup",
+              "Results are automatically recorded and linked",
+              "Your idea, execution, and outcome become part of the public archive",
+            ].map((step, i) => (
+              <motion.div key={i} {...fadeUp} transition={{ delay: i * 0.05 }} className="flex gap-4 mb-4 p-3 border-b border-primary/10">
+                <span className="font-mono text-primary/40 text-lg">{String(i + 1).padStart(2, "0")}</span>
+                <p className="font-body text-foreground">{step}</p>
+              </motion.div>
+            ))}
+          </div>
+          <motion.div {...fadeUp} transition={{ delay: 0.2 }} className="lg:col-span-2 hidden lg:block">
+            <img
+              src={UNSPLASH_CHART_ANALYSIS}
+              alt="Trader analyzing chart patterns"
+              className="w-full h-full object-cover gold-border sticky top-32"
+              loading="lazy"
+            />
           </motion.div>
-        ))}
+        </div>
       </div>
     </section>
 
@@ -120,30 +135,43 @@ const HowItWorks = () => (
 
     {/* Accountability Trail */}
     <section className="py-16 grid-bg">
-      <div className="container max-w-2xl">
+      <div className="container max-w-4xl">
         <motion.h2 {...fadeUp} className="font-display text-3xl text-foreground text-center mb-12">THE ACCOUNTABILITY TRAIL</motion.h2>
-        <motion.div {...fadeUp} className="relative border-l-2 border-primary/30 pl-6 space-y-6">
-          <div className="gold-border bg-card p-4">
-            <p className="font-mono text-[10px] text-muted-foreground tracking-widest mb-1">SETUP CARD</p>
-            <p className="font-body text-sm text-foreground">████████ · 2025-07-15 14:32 UTC</p>
-            <p className="font-body text-xs text-muted-foreground mt-1">XAUUSD — Breakout long from 1920 support</p>
-          </div>
-          <div className="gold-border bg-card p-4">
-            <p className="font-mono text-[10px] text-muted-foreground tracking-widest mb-1">EXECUTION RECORD</p>
-            <div className="grid grid-cols-4 gap-2">
-              {[["Entry", "1920.50"], ["SL", "1912.00"], ["TP", "1945.00"], ["Lots", "0.50"]].map(([k, v]) => (
-                <div key={k}>
-                  <p className="font-mono text-[10px] text-muted-foreground">{k}</p>
-                  <p className="font-mono text-sm text-foreground">{v}</p>
-                </div>
-              ))}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+          <motion.div {...fadeUp} className="lg:col-span-3 relative border-l-2 border-primary/30 pl-6 space-y-6">
+            <div className="gold-border bg-card p-4">
+              <p className="font-mono text-[10px] text-muted-foreground tracking-widest mb-1">SETUP CARD</p>
+              <p className="font-body text-sm text-foreground">████████ · 2025-07-15 14:32 UTC</p>
+              <p className="font-body text-xs text-muted-foreground mt-1">XAUUSD — Breakout long from 1920 support</p>
             </div>
-          </div>
-          <div className="gold-border bg-gain/10 p-4 flex items-center gap-3">
-            <span className="font-mono text-lg text-gain font-bold">WIN</span>
-            <span className="font-mono text-gain text-lg">+4.2%</span>
-          </div>
-        </motion.div>
+            <div className="gold-border bg-card p-4">
+              <p className="font-mono text-[10px] text-muted-foreground tracking-widest mb-1">EXECUTION RECORD</p>
+              <div className="grid grid-cols-4 gap-2">
+                {[["Entry", "1920.50"], ["SL", "1912.00"], ["TP", "1945.00"], ["Lots", "0.50"]].map(([k, v]) => (
+                  <div key={k}>
+                    <p className="font-mono text-[10px] text-muted-foreground">{k}</p>
+                    <p className="font-mono text-sm text-foreground">{v}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="gold-border bg-gain/10 p-4 flex items-center gap-3">
+              <span className="font-mono text-lg text-gain font-bold">WIN</span>
+              <span className="font-mono text-gain text-lg">+4.2%</span>
+            </div>
+          </motion.div>
+          <motion.div {...fadeUp} transition={{ delay: 0.3 }} className="lg:col-span-2 hidden lg:block">
+            <img
+              src={UNSPLASH_TRADER_LAPTOP}
+              alt="Person reviewing trading data on laptop"
+              className="w-full h-72 object-cover gold-border"
+              loading="lazy"
+            />
+            <p className="font-mono text-[10px] text-muted-foreground tracking-widest mt-3 text-center">
+              EVERY SETUP. EVERY TRADE. ON RECORD.
+            </p>
+          </motion.div>
+        </div>
       </div>
     </section>
 
@@ -154,12 +182,8 @@ const HowItWorks = () => (
         <Accordion type="single" collapsible>
           {faqs.map((faq, i) => (
             <AccordionItem key={i} value={`faq-${i}`} className="border-b border-primary/10">
-              <AccordionTrigger className="font-body text-foreground text-left hover:text-primary">
-                {faq.q}
-              </AccordionTrigger>
-              <AccordionContent className="font-body text-muted-foreground">
-                {faq.a}
-              </AccordionContent>
+              <AccordionTrigger className="font-body text-foreground text-left hover:text-primary">{faq.q}</AccordionTrigger>
+              <AccordionContent className="font-body text-muted-foreground">{faq.a}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>

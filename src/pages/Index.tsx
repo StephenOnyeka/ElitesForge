@@ -10,6 +10,13 @@ import heroVideoAsset from "../assets/hero-video.mp4.asset.json";
 import gridBg from "../assets/grid-pattern-bg.jpg";
 import whyEtlBg from "../assets/why-etl-bg.jpg";
 
+// Unsplash stock photos
+const UNSPLASH_TRADER_DESK = "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80&auto=format&fit=crop";
+const UNSPLASH_TRADING_SCREENS = "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=800&q=80&auto=format&fit=crop";
+const UNSPLASH_PRO_TRADER = "https://images.unsplash.com/photo-1560472355-536de3962603?w=600&q=80&auto=format&fit=crop";
+const UNSPLASH_PROP_FIRM = "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&q=80&auto=format&fit=crop";
+const UNSPLASH_ANALYST = "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=600&q=80&auto=format&fit=crop";
+
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
@@ -21,23 +28,14 @@ const stagger = (i: number) => ({ transition: { delay: i * 0.1, duration: 0.5 } 
 // HERO
 const HeroSection = () => (
   <section className="relative min-h-screen flex items-center overflow-hidden pt-24">
-    {/* Video Background */}
     <div className="absolute inset-0 z-0">
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        poster={heroBg}
-        className="w-full h-full object-cover"
-      >
+      <video autoPlay loop muted playsInline poster={heroBg} className="w-full h-full object-cover">
         <source src={heroVideoAsset.url} type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-background/70" />
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/60" />
     </div>
 
-    {/* Corner brackets */}
     <div className="absolute top-24 left-8 w-16 h-16 border-t-2 border-l-2 border-primary/30 z-10" />
     <div className="absolute top-24 right-8 w-16 h-16 border-t-2 border-r-2 border-primary/30 z-10" />
 
@@ -48,14 +46,8 @@ const HeroSection = () => (
         <span className="w-2 h-2 rounded-full bg-gain animate-pulse-dot" />
       </motion.div>
 
-      <motion.h1
-        {...fadeUp}
-        {...stagger(1)}
-        className="font-display text-[clamp(3.5rem,10vw,9rem)] leading-[0.9] text-foreground"
-      >
-        ELITE <span className="text-gold-gradient">TRADER</span>
-        <br />
-        LEAGUE
+      <motion.h1 {...fadeUp} {...stagger(1)} className="font-display text-[clamp(3.5rem,10vw,9rem)] leading-[0.9] text-foreground">
+        ELITE <span className="text-gold-gradient">TRADER</span><br />LEAGUE
       </motion.h1>
 
       <motion.p {...fadeUp} {...stagger(2)} className="mt-6 font-body text-lg md:text-xl text-muted-foreground max-w-xl font-light">
@@ -64,9 +56,7 @@ const HeroSection = () => (
 
       <motion.div {...fadeUp} {...stagger(3)} className="mt-4 flex items-center gap-2">
         <MdVerified className="text-primary" size={16} />
-        <span className="font-mono text-[10px] tracking-wider text-muted-foreground">
-          No anonymous trading, no fake results
-        </span>
+        <span className="font-mono text-[10px] tracking-wider text-muted-foreground">No anonymous trading, no fake results</span>
       </motion.div>
 
       <motion.div {...fadeUp} {...stagger(4)} className="mt-8 flex flex-wrap gap-4">
@@ -79,12 +69,7 @@ const HeroSection = () => (
       </motion.div>
 
       <motion.div {...fadeUp} {...stagger(5)} className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-px gold-border bg-background/50">
-        {[
-          ["SEASON", "S01"],
-          ["DURATION", "3MO"],
-          ["PLATFORM", "MT5"],
-          ["ACCESS", "KYC"],
-        ].map(([label, value]) => (
+        {[["SEASON", "S01"], ["DURATION", "3MO"], ["PLATFORM", "MT5"], ["ACCESS", "KYC"]].map(([label, value]) => (
           <div key={label} className="p-4 text-center border-r border-primary/10 last:border-r-0">
             <p className="font-mono text-[10px] text-muted-foreground tracking-widest">{label}</p>
             <p className="font-mono text-lg text-foreground mt-1">{value}</p>
@@ -103,10 +88,23 @@ const ProblemSection = () => (
       <div className="absolute inset-0 bg-background/90" />
     </div>
     <div className="container relative z-10">
-      <motion.h2 {...fadeUp} className="font-display text-3xl md:text-5xl text-foreground text-center mb-12">
-        Most trading competitions reward luck.{" "}
-        <span className="text-gold-gradient">ETL doesn't.</span>
-      </motion.h2>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
+        <motion.div {...fadeUp}>
+          <h2 className="font-display text-3xl md:text-5xl text-foreground">
+            Most trading competitions reward luck.{" "}
+            <span className="text-gold-gradient">ETL doesn't.</span>
+          </h2>
+        </motion.div>
+        <motion.div {...fadeUp} {...stagger(1)} className="relative">
+          <img
+            src={UNSPLASH_TRADING_SCREENS}
+            alt="Trader analyzing multiple screens"
+            className="w-full h-64 object-cover gold-border"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/40 to-transparent" />
+        </motion.div>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {[
           { problem: "Fake Results", solution: "Every trade timestamped and linked to a pre-submitted setup" },
@@ -166,12 +164,7 @@ const TournamentSnapshot = () => (
         <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary" />
         <h3 className="font-display text-2xl text-foreground mb-4">SEASON 01</h3>
         <div className="grid grid-cols-2 gap-4 mb-6">
-          {[
-            ["Format", "Individual"],
-            ["Dates", "Q3 2025"],
-            ["Account", "Demo MT5"],
-            ["Ranking", "Weighted Score"],
-          ].map(([k, v]) => (
+          {[["Format", "Individual"], ["Dates", "Q3 2025"], ["Account", "Demo MT5"], ["Ranking", "Weighted Score"]].map(([k, v]) => (
             <div key={k}>
               <p className="font-mono text-[10px] text-muted-foreground tracking-widest">{k}</p>
               <p className="font-mono text-sm text-foreground">{v}</p>
@@ -183,13 +176,7 @@ const TournamentSnapshot = () => (
           <span className="w-2 h-2 rounded-full bg-gain animate-pulse-dot mt-1" />
         </div>
         <div className="h-1 bg-muted overflow-hidden">
-          <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: "35%" }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.5 }}
-            className="h-full bg-primary"
-          />
+          <motion.div initial={{ width: 0 }} whileInView={{ width: "35%" }} viewport={{ once: true }} transition={{ duration: 1.5 }} className="h-full bg-primary" />
         </div>
       </motion.div>
     </div>
@@ -223,12 +210,7 @@ const LeaderboardTeaser = () => {
             </thead>
             <tbody>
               {rows.map((row, i) => (
-                <tr
-                  key={i}
-                  className={`border-b border-primary/5 ${i >= 3 ? "blur-sm select-none" : ""} ${
-                    i === 0 ? "border-l-2 border-l-primary" : i === 1 ? "border-l-2 border-l-secondary" : i === 2 ? "border-l-2 border-l-orange-700" : ""
-                  }`}
-                >
+                <tr key={i} className={`border-b border-primary/5 ${i >= 3 ? "blur-sm select-none" : ""} ${i === 0 ? "border-l-2 border-l-primary" : i === 1 ? "border-l-2 border-l-secondary" : i === 2 ? "border-l-2 border-l-orange-700" : ""}`}>
                   <td className="font-mono text-sm p-3 text-foreground">{row.rank}</td>
                   <td className="font-mono text-sm p-3 text-foreground">{row.trader}</td>
                   <td className="font-mono text-sm p-3 text-foreground">{row.score}</td>
@@ -263,17 +245,8 @@ const AccessStrip = () => (
           { tier: "EMAIL REGISTERED", features: ["Limited leaderboard", "Follow season progress"], highlight: false },
           { tier: "KYC VERIFIED", features: ["Full standings", "Setup history", "Trade analytics", "Participate"], highlight: true },
         ].map((card, i) => (
-          <motion.div
-            key={i}
-            {...fadeUp}
-            {...stagger(i)}
-            className={`p-6 ${
-              card.highlight ? "gold-border gold-glow bg-primary/5" : "border border-muted bg-card"
-            }`}
-          >
-            {card.highlight && (
-              <span className="font-mono text-[10px] tracking-widest text-primary mb-3 block">★ FULL ACCESS</span>
-            )}
+          <motion.div key={i} {...fadeUp} {...stagger(i)} className={`p-6 ${card.highlight ? "gold-border gold-glow bg-primary/5" : "border border-muted bg-card"}`}>
+            {card.highlight && <span className="font-mono text-[10px] tracking-widest text-primary mb-3 block">★ FULL ACCESS</span>}
             <h3 className="font-display text-lg text-foreground mb-4">{card.tier}</h3>
             {card.features.map((f) => (
               <div key={f} className="flex items-center gap-2 mb-2">
@@ -285,15 +258,13 @@ const AccessStrip = () => (
         ))}
       </div>
       <motion.div {...fadeUp} className="text-center mt-6">
-        <Link to="/access" className="font-mono text-xs tracking-widest text-primary hover:underline">
-          VIEW FULL ACCESS DETAILS →
-        </Link>
+        <Link to="/access" className="font-mono text-xs tracking-widest text-primary hover:underline">VIEW FULL ACCESS DETAILS →</Link>
       </motion.div>
     </div>
   </section>
 );
 
-// WHY ETL
+// WHO IS ETL FOR — with people photos
 const WhyETL = () => (
   <section className="relative py-20 md:py-28 overflow-hidden">
     <div className="absolute inset-0 z-0">
@@ -306,14 +277,24 @@ const WhyETL = () => (
       </motion.h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         {[
-          { icon: "📈", title: "Pro Traders", desc: "Prove your edge with an auditable track record" },
-          { icon: "🏢", title: "Prop Firms & Sponsors", desc: "Discover verified talent, not social media noise" },
-          { icon: "🎓", title: "Analysts & Educators", desc: "Showcase real results, not backtested theories" },
+          { img: UNSPLASH_PRO_TRADER, title: "Pro Traders", desc: "Prove your edge with an auditable track record" },
+          { img: UNSPLASH_PROP_FIRM, title: "Prop Firms & Sponsors", desc: "Discover verified talent, not social media noise" },
+          { img: UNSPLASH_ANALYST, title: "Analysts & Educators", desc: "Showcase real results, not backtested theories" },
         ].map((card, i) => (
-          <motion.div key={i} {...fadeUp} {...stagger(i)} className="gold-border p-6 bg-card/80 text-center">
-            <span className="text-3xl mb-3 block">{card.icon}</span>
-            <h3 className="font-display text-lg text-foreground">{card.title}</h3>
-            <p className="font-body text-sm text-muted-foreground mt-2">{card.desc}</p>
+          <motion.div key={i} {...fadeUp} {...stagger(i)} className="gold-border bg-card/80 overflow-hidden group">
+            <div className="relative h-48 overflow-hidden">
+              <img
+                src={card.img}
+                alt={card.title}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+            </div>
+            <div className="p-6">
+              <h3 className="font-display text-lg text-foreground">{card.title}</h3>
+              <p className="font-body text-sm text-muted-foreground mt-2">{card.desc}</p>
+            </div>
           </motion.div>
         ))}
       </div>
