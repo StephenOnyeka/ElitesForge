@@ -6,6 +6,9 @@ import PageHero from "../components/PageHero";
 import CTABanner from "../components/CTABanner";
 import tournamentHero from "../assets/tournament-hero.jpg";
 
+const UNSPLASH_COMPETITION = "https://images.unsplash.com/photo-1551836022-4c4c79ecde51?w=800&q=80&auto=format&fit=crop";
+const UNSPLASH_TROPHY = "https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=600&q=80&auto=format&fit=crop";
+
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
@@ -42,25 +45,36 @@ const Tournament = () => (
 
     {/* Season Overview */}
     <section className="py-16">
-      <div className="container max-w-2xl">
-        <motion.div {...fadeUp} className="gold-border bg-card p-8 relative">
-          <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary" />
-          <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary" />
-          <div className="flex items-center gap-2 mb-4">
-            <h3 className="font-display text-2xl text-foreground">SEASON 01</h3>
-            <span className="flex items-center gap-1 font-mono text-[10px] text-gain tracking-widest">
-              <span className="w-2 h-2 rounded-full bg-gain animate-pulse-dot" /> REGISTRATION OPEN
-            </span>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            {[["Platform", "MT5 Demo"], ["Account", "Standard"], ["Ranking", "Weighted Score"], ["Duration", "12 Weeks"]].map(([k, v]) => (
-              <div key={k}>
-                <p className="font-mono text-[10px] text-muted-foreground tracking-widest">{k}</p>
-                <p className="font-mono text-sm text-foreground">{v}</p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+      <div className="container max-w-4xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <motion.div {...fadeUp} className="gold-border bg-card p-8 relative">
+            <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary" />
+            <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary" />
+            <div className="flex items-center gap-2 mb-4">
+              <h3 className="font-display text-2xl text-foreground">SEASON 01</h3>
+              <span className="flex items-center gap-1 font-mono text-[10px] text-gain tracking-widest">
+                <span className="w-2 h-2 rounded-full bg-gain animate-pulse-dot" /> REGISTRATION OPEN
+              </span>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {[["Platform", "MT5 Demo"], ["Account", "Standard"], ["Ranking", "Weighted Score"], ["Duration", "12 Weeks"]].map(([k, v]) => (
+                <div key={k}>
+                  <p className="font-mono text-[10px] text-muted-foreground tracking-widest">{k}</p>
+                  <p className="font-mono text-sm text-foreground">{v}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+          <motion.div {...fadeUp} transition={{ delay: 0.2 }} className="relative">
+            <img
+              src={UNSPLASH_COMPETITION}
+              alt="Traders in a competitive environment"
+              className="w-full h-64 object-cover gold-border"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
+          </motion.div>
+        </div>
       </div>
     </section>
 
@@ -91,9 +105,7 @@ const Tournament = () => (
         <motion.h2 {...fadeUp} className="font-display text-3xl text-foreground text-center mb-12">OFFICIAL RULES</motion.h2>
         {rules.map((rule, i) => (
           <motion.div key={i} {...fadeUp} transition={{ delay: i * 0.05 }} className="flex gap-4 mb-4 p-4 border-b border-primary/10">
-            <span className="font-mono text-lg text-primary/40">
-              {String(i + 1).padStart(2, "0")}
-            </span>
+            <span className="font-mono text-lg text-primary/40">{String(i + 1).padStart(2, "0")}</span>
             <p className="font-body text-foreground">{rule}</p>
           </motion.div>
         ))}
@@ -121,13 +133,7 @@ const Tournament = () => (
               <span className="font-mono text-sm text-primary">{item.weight}%</span>
             </div>
             <div className="h-2 bg-muted overflow-hidden">
-              <motion.div
-                initial={{ width: 0 }}
-                whileInView={{ width: `${item.weight}%` }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: i * 0.2 }}
-                className="h-full bg-primary"
-              />
+              <motion.div initial={{ width: 0 }} whileInView={{ width: `${item.weight}%` }} viewport={{ once: true }} transition={{ duration: 1, delay: i * 0.2 }} className="h-full bg-primary" />
             </div>
             <p className="font-body text-xs text-muted-foreground mt-1">{item.desc}</p>
           </motion.div>
@@ -143,13 +149,9 @@ const Tournament = () => (
           {timelinePhases.map((phase, i) => (
             <motion.div key={i} {...fadeUp} transition={{ delay: i * 0.1 }} className="flex-1 text-center relative">
               <div className={`w-4 h-4 mx-auto mb-2 ${phase.active ? "bg-primary" : "bg-muted"}`} />
-              <p className={`font-mono text-xs tracking-widest ${phase.active ? "text-primary" : "text-muted-foreground"}`}>
-                {phase.label}
-              </p>
+              <p className={`font-mono text-xs tracking-widest ${phase.active ? "text-primary" : "text-muted-foreground"}`}>{phase.label}</p>
               <p className="font-body text-xs text-muted-foreground mt-1">{phase.desc}</p>
-              {i < timelinePhases.length - 1 && (
-                <div className="hidden md:block absolute top-2 left-[60%] right-0 h-px bg-primary/20" />
-              )}
+              {i < timelinePhases.length - 1 && <div className="hidden md:block absolute top-2 left-[60%] right-0 h-px bg-primary/20" />}
             </motion.div>
           ))}
         </div>
@@ -158,19 +160,28 @@ const Tournament = () => (
 
     {/* Prizes */}
     <section className="py-16 grid-bg">
-      <div className="container max-w-3xl">
+      <div className="container max-w-4xl">
         <motion.h2 {...fadeUp} className="font-display text-3xl text-foreground text-center mb-12">PRIZES & RECOGNITION</motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {[
-            "🏆 Leaderboard trophy badge + season archive feature",
-            "🔍 Visibility with prop firm recruitment partners",
-            "📣 Sponsor exposure and brand partnerships",
-            "📜 Permanent archive entry as Season 01 champion",
-          ].map((prize, i) => (
-            <motion.div key={i} {...fadeUp} transition={{ delay: i * 0.1 }} className="gold-border p-4 bg-card">
-              <p className="font-body text-sm text-foreground">{prize}</p>
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+          <div className="md:col-span-2">
+            <motion.div {...fadeUp} className="relative h-full min-h-[200px]">
+              <img src={UNSPLASH_TROPHY} alt="Championship recognition" className="w-full h-full object-cover gold-border" loading="lazy" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/70 to-transparent" />
+              <p className="absolute bottom-4 left-4 font-display text-lg text-foreground">SEASON 01<br/><span className="text-gold-gradient">CHAMPION</span></p>
             </motion.div>
-          ))}
+          </div>
+          <div className="md:col-span-3 grid grid-cols-1 gap-4">
+            {[
+              "🏆 Leaderboard trophy badge + season archive feature",
+              "🔍 Visibility with prop firm recruitment partners",
+              "📣 Sponsor exposure and brand partnerships",
+              "📜 Permanent archive entry as Season 01 champion",
+            ].map((prize, i) => (
+              <motion.div key={i} {...fadeUp} transition={{ delay: i * 0.1 }} className="gold-border p-4 bg-card">
+                <p className="font-body text-sm text-foreground">{prize}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

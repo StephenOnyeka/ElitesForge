@@ -7,6 +7,8 @@ import PageHero from "../components/PageHero";
 import CTABanner from "../components/CTABanner";
 import leaderboardHero from "../assets/leaderboard-hero.jpg";
 
+const UNSPLASH_DATA_SCREENS = "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop";
+
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
@@ -50,22 +52,33 @@ const Leaderboard = () => (
       </div>
     </section>
 
-    {/* Stats Strip */}
+    {/* Stats Strip with image accent */}
     <section className="py-8">
       <div className="container">
-        <motion.div {...fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            ["TOTAL PARTICIPANTS", "847"],
-            ["SETUPS THIS WEEK", "214"],
-            ["MOST TRADED", "XAUUSD"],
-            ["HIGHEST RETURN", "+18.4%"],
-          ].map(([label, value]) => (
-            <div key={label} className="gold-border p-4 bg-card text-center">
-              <p className="font-mono text-[10px] text-muted-foreground tracking-widest">{label}</p>
-              <p className="font-mono text-xl text-foreground mt-1">{value}</p>
-            </div>
-          ))}
-        </motion.div>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+          <motion.div {...fadeUp} className="lg:col-span-1 relative hidden lg:block">
+            <img
+              src={UNSPLASH_DATA_SCREENS}
+              alt="Trading analytics dashboard"
+              className="w-full h-full object-cover gold-border min-h-[120px]"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/40" />
+          </motion.div>
+          <motion.div {...fadeUp} className="lg:col-span-3 grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              ["TOTAL PARTICIPANTS", "847"],
+              ["SETUPS THIS WEEK", "214"],
+              ["MOST TRADED", "XAUUSD"],
+              ["HIGHEST RETURN", "+18.4%"],
+            ].map(([label, value]) => (
+              <div key={label} className="gold-border p-4 bg-card text-center">
+                <p className="font-mono text-[10px] text-muted-foreground tracking-widest">{label}</p>
+                <p className="font-mono text-xl text-foreground mt-1">{value}</p>
+              </div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
 
@@ -73,12 +86,7 @@ const Leaderboard = () => (
     <section className="py-4">
       <div className="container flex flex-wrap gap-3 items-center">
         {["This Week", "This Month", "Full Season"].map((f, i) => (
-          <button
-            key={f}
-            className={`font-mono text-[10px] tracking-widest px-4 py-2 ${
-              i === 0 ? "bg-primary text-primary-foreground" : "gold-border text-muted-foreground hover:text-foreground"
-            }`}
-          >
+          <button key={f} className={`font-mono text-[10px] tracking-widest px-4 py-2 ${i === 0 ? "bg-primary text-primary-foreground" : "gold-border text-muted-foreground hover:text-foreground"}`}>
             {f}
           </button>
         ))}
@@ -103,12 +111,7 @@ const Leaderboard = () => (
           </thead>
           <tbody>
             {rows.map((row, i) => (
-              <tr
-                key={i}
-                className={`border-b border-primary/5 ${i >= 5 ? "blur-sm select-none" : ""} ${
-                  i === 0 ? "border-l-2 border-l-primary" : i === 1 ? "border-l-2 border-l-secondary" : i === 2 ? "border-l-2 border-l-orange-700" : ""
-                }`}
-              >
+              <tr key={i} className={`border-b border-primary/5 ${i >= 5 ? "blur-sm select-none" : ""} ${i === 0 ? "border-l-2 border-l-primary" : i === 1 ? "border-l-2 border-l-secondary" : i === 2 ? "border-l-2 border-l-orange-700" : ""}`}>
                 <td className="font-mono text-sm p-3 text-foreground">{row.rank}</td>
                 <td className="font-mono text-sm p-3 text-foreground">{row.trader}</td>
                 <td className="p-3">{row.country}</td>
