@@ -35,7 +35,9 @@ const HeroSection = () => (
       <video autoPlay loop muted playsInline poster={heroBg} className="w-full h-full object-cover">
         <source src={heroVideoUrl} type="video/mp4" />
       </video>
-      <div className="absolute inset-0 bg-background/70" />
+      {/* <div className="absolute inset-0 bg-background/70" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/60" /> */}
+      <div className="absolute inset-0 bg-background/40" />
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/60" />
     </div>
 

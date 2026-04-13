@@ -6,7 +6,8 @@ import PageHero from "../components/PageHero";
 import CTABanner from "../components/CTABanner";
 import tournamentHero from "../assets/tournament-hero.jpg";
 
-const UNSPLASH_COMPETITION = "https://images.unsplash.com/photo-1551836022-4c4c79ecde51?w=800&q=80&auto=format&fit=crop";
+// const UNSPLASH_COMPETITION = "https://images.unsplash.com/photo-1551836022-4c4c79ecde51?w=800&q=80&auto=format&fit=crop";
+const UNSPLASH_COMPETITION = "../assets/traders-competition.png";
 const UNSPLASH_TROPHY = "https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=600&q=80&auto=format&fit=crop";
 
 const fadeUp = {
@@ -67,7 +68,9 @@ const Tournament = () => (
           </motion.div>
           <motion.div {...fadeUp} transition={{ delay: 0.2 }} className="relative">
             <img
-              src={UNSPLASH_COMPETITION}
+              // src={UNSPLASH_COMPETITION}
+              // src={"images/traders-competition.png"}
+              src={"images/image.png"}
               alt="Traders in a competitive environment"
               className="w-full h-64 object-cover gold-border"
               loading="lazy"

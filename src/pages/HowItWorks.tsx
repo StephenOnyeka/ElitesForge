@@ -9,7 +9,9 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import howItWorksHero from "../assets/how-it-works-hero.jpg";
 
 const UNSPLASH_CHART_ANALYSIS = "https://images.unsplash.com/photo-1642790106117-e829e14a795f?w=800&q=80&auto=format&fit=crop";
-const UNSPLASH_TRADER_LAPTOP = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80&auto=format&fit=crop";
+// const UNSPLASH_TRADER_LAPTOP = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80&auto=format&fit=crop";
+// const UNSPLASH_TRADER_LAPTOP = "images/laptop.jpg";
+const UNSPLASH_TRADER_LAPTOP = "images/trader laptop.jpg";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -52,7 +54,9 @@ const HowItWorks = () => (
     <section className="py-16">
       <div className="container">
         <motion.h2 {...fadeUp} className="font-display text-3xl text-foreground text-center mb-12">THE CORE LOOP</motion.h2>
-        <div className="flex flex-col md:flex-row gap-6 items-stretch">
+        {/* <div className="flex flex-col md:flex-row gap-6 items-stretch"> */}
+        {/* <div className="flex flex-col sm:flex-wrap gap-6 items-stretch"> */}
+        <div className="flex flex-wrap max-sm:flex-col gap-6 items-stretch">
           {coreNodes.map((node, i) => (
             <motion.div
               key={i}
@@ -66,7 +70,8 @@ const HowItWorks = () => (
               <h3 className="font-display text-sm text-foreground">{node.title}</h3>
               <p className="font-body text-xs text-muted-foreground mt-1">{node.desc}</p>
               {i < coreNodes.length - 1 && (
-                <div className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 text-primary z-10">→</div>
+                // <div className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 text-primary z-10">→</div>
+                <div className="hidden md:block absolute -right-5 top-1/2 -translate-y-1/2 text-primary z-10">→</div>
               )}
             </motion.div>
           ))}
