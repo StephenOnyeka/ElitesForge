@@ -278,7 +278,7 @@ const WhyETL = () => (
     </div>
     <div className="container relative z-10">
       <motion.h2 {...fadeUp} className="font-display text-3xl md:text-4xl text-foreground text-center mb-12">
-        WHO IS ELITESFORGE FOR?
+        WHO IS ETL FOR?
       </motion.h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         {[
