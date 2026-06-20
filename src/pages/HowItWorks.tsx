@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import type { IconType } from "react-icons";
 import { MdCameraAlt, MdEdit, MdLock, MdTrendingUp, MdArchive, MdLightbulb, MdSwapVert } from "react-icons/md";
 import Navbar from "../components/Navbar";
 import TickerBar from "../components/TickerBar";
@@ -19,15 +20,46 @@ const fadeUp = {
   viewport: { once: true },
 };
 
-const coreNodes = [
-  { icon: <MdLightbulb size={24} />, title: "Idea", desc: "You spot a trading opportunity" },
-  { icon: <MdCameraAlt size={24} />, title: "Chart Screenshot", desc: "Upload your chart with the setup marked" },
-  { icon: <MdEdit size={24} />, title: "Written Explanation", desc: "Strategy, entry logic, SL/TP reasoning" },
-  { icon: <MdLock size={24} />, title: "Submit Setup", desc: "Locked and timestamped on the platform" },
-  { icon: <MdSwapVert size={24} />, title: "Execute Trades", desc: "Up to 3 trades linked to this setup" },
-  { icon: <MdTrendingUp size={24} />, title: "Outcome Recorded", desc: "Win, loss, or breakeven — permanent" },
-  { icon: <MdArchive size={24} />, title: "Archive", desc: "Public record viewable by KYC-verified users" },
+type CoreStep = { icon: IconType; title: string; desc: string };
+type CorePhase = { phase: string; label: string; tagline: string; steps: CoreStep[] };
+
+const corePhases: CorePhase[] = [
+  {
+    phase: "01",
+    label: "DOCUMENT",
+    tagline: "Capture your thesis before you trade",
+    steps: [
+      { icon: MdLightbulb, title: "Idea", desc: "You spot a trading opportunity" },
+      { icon: MdCameraAlt, title: "Chart Screenshot", desc: "Upload your chart with the setup marked" },
+      { icon: MdEdit, title: "Written Explanation", desc: "Strategy, entry logic, SL/TP reasoning" },
+    ],
+  },
+  {
+    phase: "02",
+    label: "COMMIT & EXECUTE",
+    tagline: "Lock in your plan, then trade it",
+    steps: [
+      { icon: MdLock, title: "Submit Setup", desc: "Locked and timestamped on the platform" },
+      { icon: MdSwapVert, title: "Execute Trades", desc: "Up to 3 trades linked to this setup" },
+    ],
+  },
+  {
+    phase: "03",
+    label: "RECORD & ARCHIVE",
+    tagline: "Every outcome becomes public history",
+    steps: [
+      { icon: MdTrendingUp, title: "Outcome Recorded", desc: "Win, loss, or breakeven — permanent" },
+      { icon: MdArchive, title: "Archive", desc: "Public record viewable by KYC-verified users" },
+    ],
+  },
 ];
+
+const coreSteps = corePhases.flatMap((phase) => phase.steps);
+
+const globalStepNumber = (phaseIndex: number, stepIndex: number) => {
+  const offsets = [0, 3, 5];
+  return offsets[phaseIndex] + stepIndex + 1;
+};
 
 const faqs = [
   { q: "Can I submit multiple setups per session?", a: "No, one per session. This ensures quality over quantity." },
@@ -51,30 +83,206 @@ const HowItWorks = () => (
     />
 
     {/* Core Loop */}
-    <section className="py-16">
-      <div className="container">
-        <motion.h2 {...fadeUp} className="font-display text-3xl text-foreground text-center mb-12">THE CORE LOOP</motion.h2>
-        {/* <div className="flex flex-col md:flex-row gap-6 items-stretch"> */}
-        {/* <div className="flex flex-col sm:flex-wrap gap-6 items-stretch"> */}
-        <div className="flex flex-wrap max-sm:flex-col gap-6 items-stretch">
-          {coreNodes.map((node, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.15, duration: 0.5 }}
-              className="flex-1 gold-border p-4 bg-card text-center relative"
-            >
-              <div className="text-primary mb-2 flex justify-center">{node.icon}</div>
-              <h3 className="font-display text-sm text-foreground">{node.title}</h3>
-              <p className="font-body text-xs text-muted-foreground mt-1">{node.desc}</p>
-              {i < coreNodes.length - 1 && (
-                // <div className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 text-primary z-10">→</div>
-                <div className="hidden md:block absolute -right-5 top-1/2 -translate-y-1/2 text-primary z-10">→</div>
-              )}
-            </motion.div>
+    <section className="py-16 md:py-20 relative overflow-hidden">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[480px] w-[480px] rounded-full bg-primary/[0.04] blur-3xl" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+      </div>
+
+      <div className="container relative">
+        <motion.div {...fadeUp} className="mx-auto mb-14 max-w-2xl text-center">
+          <p className="font-mono text-[10px] tracking-widest text-primary mb-3">ETL ACCOUNTABILITY ENGINE</p>
+          <h2 className="font-display text-3xl md:text-4xl text-foreground">THE CORE LOOP</h2>
+          <p className="font-body text-sm md:text-base text-muted-foreground mt-4">
+            Seven steps across three phases. Your idea, execution, and outcome — permanently linked before the next session begins.
+          </p>
+        </motion.div>
+
+        {/* Desktop: three-phase pipeline */}
+        <div className="relative hidden lg:block">
+          <div className="grid grid-cols-3 gap-6 xl:gap-8">
+            {corePhases.map((phase, phaseIndex) => (
+              <motion.div
+                key={phase.phase}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: phaseIndex * 0.12, duration: 0.55 }}
+                className={`relative gold-border bg-card p-6 xl:p-8 ${
+                  phaseIndex === 1 ? "gold-glow bg-primary/[0.03]" : ""
+                }`}
+              >
+                {phaseIndex === 1 && (
+                  <>
+                    <div className="absolute top-0 left-0 h-4 w-4 border-l-2 border-t-2 border-primary" />
+                    <div className="absolute bottom-0 right-0 h-4 w-4 border-b-2 border-r-2 border-primary" />
+                  </>
+                )}
+
+                <div className="mb-6 border-b border-primary/10 pb-5">
+                  <span className="font-mono text-3xl text-primary/20 leading-none">{phase.phase}</span>
+                  <h3 className="font-display text-lg text-primary mt-2">{phase.label}</h3>
+                  <p className="font-body text-xs text-muted-foreground mt-1">{phase.tagline}</p>
+                </div>
+
+                <div className="space-y-1">
+                  {phase.steps.map((step, stepIndex) => {
+                    const StepIcon = step.icon;
+                    const stepNum = globalStepNumber(phaseIndex, stepIndex);
+
+                    return (
+                      <div key={step.title}>
+                        <motion.div
+                          initial={{ opacity: 0, x: -12 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: phaseIndex * 0.12 + stepIndex * 0.08, duration: 0.45 }}
+                          className="group flex gap-4 p-3 transition-colors hover:bg-primary/[0.04]"
+                        >
+                          <div className="flex shrink-0 flex-col items-center">
+                            <div className="flex h-10 w-10 items-center justify-center gold-border bg-background text-primary transition-colors group-hover:bg-primary/10">
+                              <StepIcon size={20} />
+                            </div>
+                          </div>
+                          <div className="min-w-0 pt-0.5">
+                            <p className="font-mono text-[10px] tracking-widest text-primary/50">
+                              STEP {String(stepNum).padStart(2, "0")}
+                            </p>
+                            <h4 className="font-display text-base text-foreground">{step.title}</h4>
+                            <p className="font-body text-xs text-muted-foreground mt-0.5 leading-relaxed">{step.desc}</p>
+                          </div>
+                        </motion.div>
+                        {stepIndex < phase.steps.length - 1 && (
+                          <div className="ml-[19px] h-5 w-px bg-primary/25" />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {phaseIndex < corePhases.length - 1 && (
+                  <div className="pointer-events-none absolute -right-4 xl:-right-5 top-1/2 z-10 flex -translate-y-1/2 items-center">
+                    <span className="hidden xl:block h-px w-3 bg-primary/30" />
+                    <span className="font-mono text-lg text-primary">→</span>
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            {...fadeUp}
+            transition={{ delay: 0.4 }}
+            className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center"
+          >
+            <div className="flex items-center gap-3">
+              <span className="h-px w-10 bg-primary/25" />
+              <span className="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
+                Archive feeds the next session
+              </span>
+              <span className="h-px w-10 bg-primary/25" />
+            </div>
+            <div className="flex items-center gap-2 font-mono text-sm text-primary">
+              <span>IDEA</span>
+              <span className="text-primary/40">→</span>
+              <span>ARCHIVE</span>
+              <span className="text-primary/40">→</span>
+              <span className="inline-flex items-center gap-1">
+                <span>IDEA</span>
+                <span className="text-lg leading-none">↻</span>
+              </span>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Tablet: horizontal scroll snap */}
+        <div className="hidden md:block lg:hidden -mx-4 px-4">
+          <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 scrollbar-none">
+            {coreSteps.map((step, i) => {
+              const StepIcon = step.icon;
+              return (
+                <motion.div
+                  key={step.title}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.06, duration: 0.45 }}
+                  className="w-[240px] shrink-0 snap-center gold-border bg-card p-5"
+                >
+                  <p className="font-mono text-[10px] tracking-widest text-primary/50 mb-3">
+                    {String(i + 1).padStart(2, "0")} / 07
+                  </p>
+                  <div className="mb-3 flex h-10 w-10 items-center justify-center gold-border text-primary">
+                    <StepIcon size={20} />
+                  </div>
+                  <h4 className="font-display text-sm text-foreground">{step.title}</h4>
+                  <p className="font-body text-xs text-muted-foreground mt-1 leading-relaxed">{step.desc}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+          <p className="font-mono text-[10px] tracking-widest text-muted-foreground text-center mt-2">
+            SWIPE TO EXPLORE ALL 7 STEPS →
+          </p>
+        </div>
+
+        {/* Mobile: vertical timeline */}
+        <div className="md:hidden relative ml-3 border-l-2 border-primary/20 pl-8">
+          {corePhases.map((phase, phaseIndex) => (
+            <div key={phase.phase} className={phaseIndex > 0 ? "mt-10" : ""}>
+              <motion.div
+                {...fadeUp}
+                transition={{ delay: phaseIndex * 0.08 }}
+                className="relative -ml-[41px] mb-6 pl-2"
+              >
+                <div className="absolute left-0 top-1 h-3 w-3 -translate-x-[5px] bg-primary" />
+                <p className="font-mono text-[10px] tracking-widest text-primary">{phase.phase} · {phase.label}</p>
+                <p className="font-body text-xs text-muted-foreground mt-0.5">{phase.tagline}</p>
+              </motion.div>
+
+              {phase.steps.map((step, stepIndex) => {
+                const StepIcon = step.icon;
+                const stepNum = globalStepNumber(phaseIndex, stepIndex);
+
+                return (
+                  <motion.div
+                    key={step.title}
+                    initial={{ opacity: 0, x: -16 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: phaseIndex * 0.1 + stepIndex * 0.06, duration: 0.45 }}
+                    className="relative mb-6 last:mb-0"
+                  >
+                    <div className="absolute -left-[33px] top-4 h-2.5 w-2.5 rounded-full border-2 border-primary bg-background" />
+                    <div className="gold-border bg-card p-4">
+                      <div className="flex items-start gap-3">
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center gold-border text-primary">
+                          <StepIcon size={18} />
+                        </div>
+                        <div>
+                          <p className="font-mono text-[10px] tracking-widest text-primary/50">
+                            STEP {String(stepNum).padStart(2, "0")}
+                          </p>
+                          <h4 className="font-display text-sm text-foreground">{step.title}</h4>
+                          <p className="font-body text-xs text-muted-foreground mt-1 leading-relaxed">{step.desc}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
           ))}
+
+          <motion.div
+            {...fadeUp}
+            transition={{ delay: 0.35 }}
+            className="relative -ml-[41px] mt-8 flex items-center gap-2 pl-2"
+          >
+            <div className="absolute left-0 top-1.5 h-3 w-3 -translate-x-[5px] border-2 border-primary bg-background" />
+            <span className="font-mono text-[10px] tracking-widest text-primary">LOOP CLOSED</span>
+            <span className="text-primary text-lg leading-none">↻</span>
+          </motion.div>
         </div>
       </div>
     </section>
