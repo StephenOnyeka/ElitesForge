@@ -43,8 +43,7 @@ const Navbar = () => {
       >
         <div className="container flex h-16 items-center justify-between">
           <Link to="/" className="font-display text-xl md:text-2xl tracking-wider text-foreground">
-            {/* ETL <span className="text-gold-gradient">◆</span> */}
-            Elites<span className="text-gold-gradient">Forge</span>
+            ELITE TRADER <span className="text-gold-gradient">LEAGUE</span>
           </Link>
 
           <div className="hidden md:flex items-center gap-8">

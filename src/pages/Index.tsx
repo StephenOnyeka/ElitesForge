@@ -14,7 +14,6 @@ import gridBg from "../assets/grid-pattern-bg.jpg";
 import whyEtlBg from "../assets/why-etl-bg.jpg";
 
 // Unsplash stock photos
-const UNSPLASH_TRADER_DESK = "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80&auto=format&fit=crop";
 const UNSPLASH_TRADING_SCREENS = "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=800&q=80&auto=format&fit=crop";
 const UNSPLASH_PRO_TRADER = "https://images.unsplash.com/photo-1560472355-536de3962603?w=600&q=80&auto=format&fit=crop";
 const UNSPLASH_PROP_FIRM = "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&q=80&auto=format&fit=crop";
