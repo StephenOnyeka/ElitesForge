@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { MdVerified, MdPlayArrow, MdLock, MdCheck, MdArrowForward } from "react-icons/md";
+import { MdVerified, MdPlayArrow, MdLock, MdCheck, MdArrowForward, MdPublic, MdMailOutline, MdVerifiedUser } from "react-icons/md";
 import Navbar from "../components/Navbar";
 import TickerBar from "../components/TickerBar";
 import Footer from "../components/Footer";
@@ -238,32 +238,165 @@ const LeaderboardTeaser = () => {
 };
 
 // ACCESS LEVELS
+const accessTiers = [
+  {
+    level: "00",
+    tier: "PUBLIC VISITOR",
+    icon: MdPublic,
+    unlock: 25,
+    tagline: "Open to everyone. No account needed.",
+    features: [
+      { text: "View homepage & tournament info", on: true },
+      { text: "Browse public season overview", on: true },
+      { text: "Full leaderboard standings", on: false },
+      { text: "Tournament participation", on: false },
+    ],
+    highlight: false,
+  },
+  {
+    level: "01",
+    tier: "EMAIL REGISTERED",
+    icon: MdMailOutline,
+    unlock: 60,
+    tagline: "One email unlocks the season feed.",
+    features: [
+      { text: "Limited leaderboard data", on: true },
+      { text: "Follow live season progress", on: true },
+      { text: "Blurred setup card previews", on: true },
+      { text: "Tournament participation", on: false },
+    ],
+    highlight: false,
+  },
+  {
+    level: "02",
+    tier: "KYC VERIFIED",
+    icon: MdVerifiedUser,
+    unlock: 100,
+    tagline: "Full access. Earn your place on the board.",
+    features: [
+      { text: "Full standings & setup history", on: true },
+      { text: "Trade analytics & equity curves", on: true },
+      { text: "Verified trader profile page", on: true },
+      { text: "Compete in Season 01", on: true },
+    ],
+    highlight: true,
+  },
+];
+
 const AccessStrip = () => (
-  <section className="py-20 md:py-28">
-    <div className="container">
-      <motion.h2 {...fadeUp} className="font-display text-3xl md:text-4xl text-foreground text-center mb-12">
-        ACCESS LEVELS
+  <section className="relative py-20 md:py-28 overflow-hidden">
+    <div className="absolute inset-0 grid-bg opacity-60 z-0" />
+    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[40rem] h-[40rem] bg-primary/5 rounded-full blur-[120px] z-0" />
+
+    <div className="container relative z-10">
+      <motion.div {...fadeUp} className="flex items-center gap-3 mb-4 justify-center">
+        <div className="h-px w-12 bg-primary/40" />
+        <span className="font-mono text-[10px] tracking-widest text-primary">PROGRESSIVE ACCESS</span>
+        <div className="h-px w-12 bg-primary/40" />
+      </motion.div>
+      <motion.h2 {...fadeUp} {...stagger(1)} className="font-display text-3xl md:text-5xl text-foreground text-center mb-3">
+        UNLOCK THE <span className="text-gold-gradient">FULL BOARD</span>
       </motion.h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {[
-          { tier: "PUBLIC VISITOR", features: ["View homepage", "Read tournament info"], highlight: false },
-          { tier: "EMAIL REGISTERED", features: ["Limited leaderboard", "Follow season progress"], highlight: false },
-          { tier: "KYC VERIFIED", features: ["Full standings", "Setup history", "Trade analytics", "Participate"], highlight: true },
-        ].map((card, i) => (
-          <motion.div key={i} {...fadeUp} {...stagger(i)} className={`p-6 ${card.highlight ? "gold-border gold-glow bg-primary/5" : "border border-muted bg-card"}`}>
-            {card.highlight && <span className="font-mono text-[10px] tracking-widest text-primary mb-3 block">★ FULL ACCESS</span>}
-            <h3 className="font-display text-lg text-foreground mb-4">{card.tier}</h3>
-            {card.features.map((f) => (
-              <div key={f} className="flex items-center gap-2 mb-2">
-                {card.highlight ? <MdCheck className="text-primary" size={14} /> : <MdLock className="text-muted-foreground" size={14} />}
-                <span className="font-body text-sm text-muted-foreground">{f}</span>
+      <motion.p {...fadeUp} {...stagger(2)} className="font-body text-sm md:text-base text-muted-foreground text-center max-w-xl mx-auto mb-14">
+        Access tightens as the stakes rise. Each level earns more of the league —
+        from public spectator to verified competitor.
+      </motion.p>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+        {accessTiers.map((card, i) => {
+          const Icon = card.icon;
+          return (
+            <motion.div
+              key={card.level}
+              {...fadeUp}
+              {...stagger(i)}
+              className={`group relative flex flex-col p-6 transition-all duration-300 ${
+                card.highlight
+                  ? "gold-border gold-glow bg-primary/[0.07]"
+                  : "border border-muted bg-card/60 hover:border-primary/40"
+              }`}
+            >
+              {card.highlight && (
+                <>
+                  <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary" />
+                  <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-primary" />
+                  <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-primary" />
+                  <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary" />
+                  <span className="absolute -top-3 right-4 bg-background px-3 font-mono text-[10px] tracking-widest text-primary">
+                    ★ FULL ACCESS
+                  </span>
+                </>
+              )}
+
+              <div className="flex items-start justify-between mb-5">
+                <div
+                  className={`flex h-12 w-12 items-center justify-center ${
+                    card.highlight ? "bg-primary text-primary-foreground" : "gold-border text-primary"
+                  }`}
+                >
+                  <Icon size={24} />
+                </div>
+                <span className="font-display text-5xl leading-none text-primary/15 group-hover:text-primary/25 transition-colors">
+                  {card.level}
+                </span>
               </div>
-            ))}
-          </motion.div>
-        ))}
+
+              <h3 className="font-display text-xl text-foreground">{card.tier}</h3>
+              <p className="font-body text-xs text-muted-foreground mt-1 mb-5">{card.tagline}</p>
+
+              <div className="mb-5">
+                <div className="flex justify-between mb-2">
+                  <span className="font-mono text-[10px] tracking-widest text-muted-foreground">ACCESS</span>
+                  <span className={`font-mono text-[10px] tracking-widest ${card.highlight ? "text-primary" : "text-muted-foreground"}`}>
+                    {card.unlock}%
+                  </span>
+                </div>
+                <div className="h-1 bg-muted overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${card.unlock}%` }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.2, delay: i * 0.15 }}
+                    className={`h-full ${card.highlight ? "bg-primary" : "bg-secondary"}`}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2.5 flex-1">
+                {card.features.map((f) => (
+                  <div key={f.text} className="flex items-start gap-2">
+                    {f.on ? (
+                      <MdCheck className={`shrink-0 mt-0.5 ${card.highlight ? "text-primary" : "text-gain"}`} size={15} />
+                    ) : (
+                      <MdLock className="text-muted-foreground/50 shrink-0 mt-0.5" size={15} />
+                    )}
+                    <span className={`font-body text-sm ${f.on ? "text-foreground" : "text-muted-foreground/50 line-through"}`}>
+                      {f.text}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {card.highlight && (
+                <Link
+                  to="/access"
+                  className="btn-shimmer mt-6 font-mono text-[10px] tracking-widest uppercase text-primary-foreground px-5 py-3 text-center font-medium flex items-center justify-center gap-2"
+                >
+                  Get Verified <MdArrowForward size={14} />
+                </Link>
+              )}
+            </motion.div>
+          );
+        })}
       </div>
-      <motion.div {...fadeUp} className="text-center mt-6">
-        <Link to="/access" className="font-mono text-xs tracking-widest text-primary hover:underline">VIEW FULL ACCESS DETAILS →</Link>
+
+      <motion.div {...fadeUp} className="text-center mt-10">
+        <Link
+          to="/access"
+          className="gold-border inline-flex items-center gap-2 font-mono text-xs tracking-widest uppercase text-foreground px-7 py-4 hover:bg-primary/5 transition-colors"
+        >
+          View Full Access Details <MdArrowForward size={14} className="text-primary" />
+        </Link>
       </motion.div>
     </div>
   </section>
