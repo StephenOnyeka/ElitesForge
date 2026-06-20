@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { MdLock, MdSearch } from "react-icons/md";
 import Navbar from "../components/Navbar";
 import TickerBar from "../components/TickerBar";
@@ -45,9 +46,9 @@ const Leaderboard = () => (
           <p className="font-body text-sm text-foreground">
             You are viewing a preview. Complete KYC to unlock full standings, setup history, and trade analytics.
           </p>
-          <a href="/waitlist" className="btn-shimmer font-mono text-[10px] tracking-widest text-primary-foreground px-5 py-2 whitespace-nowrap">
+          <Link to="/waitlist" className="btn-shimmer font-mono text-[10px] tracking-widest text-primary-foreground px-5 py-2 whitespace-nowrap">
             VERIFY NOW →
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>
@@ -126,9 +127,9 @@ const Leaderboard = () => (
         </motion.table>
         <motion.div {...fadeUp} className="mt-4 frosted-glass gold-border p-6 text-center">
           <p className="font-body text-sm text-foreground mb-3">Complete KYC to unlock full standings</p>
-          <a href="/waitlist" className="btn-shimmer inline-block font-mono text-xs tracking-widest text-primary-foreground px-6 py-3">
+          <Link to="/waitlist" className="btn-shimmer inline-block font-mono text-xs tracking-widest text-primary-foreground px-6 py-3">
             VERIFY NOW →
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>

@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MdCheck, MdArrowBack } from "react-icons/md";
 import waitlistBg from "../assets/waitlist-bg.jpg";
 
-const UNSPLASH_FOCUSED_TRADER = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&auto=format&fit=crop";
 const UNSPLASH_TRADING_FLOOR = "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80&auto=format&fit=crop";
 
 const fadeUp = {

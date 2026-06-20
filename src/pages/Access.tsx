@@ -7,11 +7,8 @@ import PageHero from "../components/PageHero";
 import CTABanner from "../components/CTABanner";
 import accessHero from "../assets/access-hero.jpg";
 
-// const UNSPLASH_KYC_VERIFY = "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&q=80&auto=format&fit=crop";
-const UNSPLASH_KYC_VERIFY = "images/image 4.png";
+const UNSPLASH_KYC_VERIFY = "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&q=80&auto=format&fit=crop";
 const UNSPLASH_SECURE_TEAM = "images/team 2.jpg";
-// const UNSPLASH_SECURE_TEAM = "images/porlovast.jpg";
-// const UNSPLASH_SECURE_TEAM = "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80&auto=format&fit=crop";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },

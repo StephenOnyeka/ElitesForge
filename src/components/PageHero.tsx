@@ -17,7 +17,6 @@ const PageHero = ({ headline, subline, breadcrumb, compact, backgroundImage }: P
           src={backgroundImage}
           alt=""
           className="w-full h-full object-cover"
-          loading="lazy"
         />
         <div className="absolute inset-0 bg-background/80" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
