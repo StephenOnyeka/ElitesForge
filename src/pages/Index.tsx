@@ -168,7 +168,7 @@ const TournamentSnapshot = () => (
         <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary" />
         <h3 className="font-display text-2xl text-foreground mb-4">SEASON 01</h3>
         <div className="grid grid-cols-2 gap-4 mb-6">
-          {[["Format", "Individual"], ["Dates", "Q3 2025"], ["Account", "Demo MT5"], ["Ranking", "Weighted Score"]].map(([k, v]) => (
+          {[["Format", "Individual"], ["Duration", "12 Weeks"], ["Account", "Demo MT5"], ["Ranking", "Weighted Score"]].map(([k, v]) => (
             <div key={k}>
               <p className="font-mono text-[10px] text-muted-foreground tracking-widest">{k}</p>
               <p className="font-mono text-sm text-foreground">{v}</p>
