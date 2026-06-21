@@ -11,6 +11,17 @@ const navLinks = [
   { label: "ABOUT", href: "/about" },
 ];
 
+// Build the login URL on the `app.` subdomain of the current host.
+// e.g. elitetraderleague.com -> https://app.elitetraderleague.com/login
+const getAppLoginUrl = () => {
+  if (typeof window === "undefined") return "/login";
+  const { protocol, hostname, port } = window.location;
+  const bareHost = hostname.replace(/^www\./, "");
+  const host = bareHost.startsWith("app.") ? bareHost : `app.${bareHost}`;
+  const portSuffix = port ? `:${port}` : "";
+  return `${protocol}//${host}${portSuffix}/login`;
+};
+
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -62,9 +73,12 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-3">
-            <button className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors px-4 py-2">
+            <a
+              href={getAppLoginUrl()}
+              className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors px-4 py-2"
+            >
               SIGN IN
-            </button>
+            </a>
             <Link
               to="/waitlist"
               className="btn-shimmer font-mono text-[10px] tracking-widest uppercase text-primary-foreground px-5 py-2.5 font-medium"
@@ -102,6 +116,12 @@ const Navbar = () => {
                 </Link>
               ))}
               <hr className="border-primary/10" />
+              <a
+                href={getAppLoginUrl()}
+                className="font-mono text-xs tracking-widest uppercase text-muted-foreground hover:text-primary text-center"
+              >
+                SIGN IN
+              </a>
               <Link
                 to="/waitlist"
                 onClick={() => setMobileOpen(false)}
