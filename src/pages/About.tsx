@@ -5,9 +5,11 @@ import TickerBar from "../components/TickerBar";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import CTABanner from "../components/CTABanner";
-import accessHero from "../assets/access-hero.jpg";
 
-const TEAM_IMAGE = "/images/team 2.jpg";
+// Dark, aspirational skyline — sets an elite, ambitious tone behind the gold overlay.
+const ABOUT_HERO = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80&auto=format&fit=crop";
+// Team collaboration shot for the "Powered by ElitesForge" section.
+const TEAM_IMAGE = "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80&auto=format&fit=crop";
 const FLOOR_IMAGE = "/images/traders-competition.png";
 
 const fadeUp = {
@@ -61,7 +63,7 @@ const About = () => (
       headline="We Built the League We Couldn't Find."
       subline="ElitesForge exists to settle one question: who can actually trade?"
       breadcrumb="Home > About Us"
-      backgroundImage={accessHero}
+      backgroundImage={ABOUT_HERO}
       compact
     />
 
