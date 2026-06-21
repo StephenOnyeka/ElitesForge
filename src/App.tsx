@@ -8,6 +8,7 @@ import Tournament from "./pages/Tournament.tsx";
 import HowItWorks from "./pages/HowItWorks.tsx";
 import Leaderboard from "./pages/Leaderboard.tsx";
 import Access from "./pages/Access.tsx";
+import About from "./pages/About.tsx";
 import Waitlist from "./pages/Waitlist.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import ThemeMusic from "./components/ThemeMusic.tsx";
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/access" element={<Access />} />
+          <Route path="/about" element={<About />} />
           <Route path="/waitlist" element={<Waitlist />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
