@@ -24,12 +24,21 @@ const rules = [
 ];
 
 const timelinePhases = [
-  { label: "Pre-Season", desc: "Registration & KYC", active: true },
-  { label: "Week 1–4", desc: "Opening rounds begin", active: false },
-  { label: "Week 5–8", desc: "Mid-season intensity", active: false },
-  { label: "Week 9–12", desc: "Final push", active: false },
-  { label: "Season End", desc: "Rankings finalized", active: false },
+  { id: "01", label: "Pre-Season", desc: "Registration & KYC verification", status: "current" as const },
+  { id: "02", label: "Week 1–4", desc: "Opening rounds begin", status: "upcoming" as const },
+  { id: "03", label: "Week 5–8", desc: "Mid-season intensity", status: "upcoming" as const },
+  { id: "04", label: "Week 9–12", desc: "Final push", status: "upcoming" as const },
+  { id: "05", label: "Season End", desc: "Rankings finalized", status: "upcoming" as const },
 ];
+
+const activePhaseIndex = timelinePhases.findIndex((p) => p.status === "current");
+const timelineProgress = (activePhaseIndex / (timelinePhases.length - 1)) * 100;
+
+const phaseStatusLabel: Record<string, string> = {
+  done: "Complete",
+  current: "In Progress",
+  upcoming: "Upcoming",
+};
 
 const Tournament = () => (
   <div className="bg-background min-h-screen">
@@ -142,18 +151,120 @@ const Tournament = () => (
     </section>
 
     {/* Timeline */}
-    <section className="py-16">
-      <div className="container">
-        <motion.h2 {...fadeUp} className="font-display text-3xl text-foreground text-center mb-12">SEASON TIMELINE</motion.h2>
-        <div className="flex flex-col md:flex-row gap-4 md:gap-0 items-start md:items-center">
-          {timelinePhases.map((phase, i) => (
-            <motion.div key={i} {...fadeUp} transition={{ delay: i * 0.1 }} className="flex-1 text-center relative">
-              <div className={`w-4 h-4 mx-auto mb-2 ${phase.active ? "bg-primary" : "bg-muted"}`} />
-              <p className={`font-mono text-xs tracking-widest ${phase.active ? "text-primary" : "text-muted-foreground"}`}>{phase.label}</p>
-              <p className="font-body text-xs text-muted-foreground mt-1">{phase.desc}</p>
-              {i < timelinePhases.length - 1 && <div className="hidden md:block absolute top-2 left-[60%] right-0 h-px bg-primary/20" />}
-            </motion.div>
-          ))}
+    <section className="py-16 md:py-20">
+      <div className="container max-w-5xl">
+        <motion.div {...fadeUp} className="text-center mb-14">
+          <p className="font-mono text-[10px] tracking-widest text-primary mb-3">12 WEEKS · 5 PHASES</p>
+          <h2 className="font-display text-3xl md:text-4xl text-foreground">SEASON TIMELINE</h2>
+        </motion.div>
+
+        {/* Desktop: horizontal progress spine */}
+        <div className="hidden md:block">
+          <div className="relative">
+            {/* base track + animated progress fill */}
+            <div className="absolute top-3 left-0 right-0 h-px bg-primary/15" />
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: `${timelineProgress}%` }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: "easeInOut" }}
+              className="absolute top-3 left-0 h-px bg-primary"
+            />
+
+            <div className="relative grid grid-cols-5 gap-4">
+              {timelinePhases.map((phase, i) => {
+                const isCurrent = phase.status === "current";
+                const isDone = phase.status === "done";
+                return (
+                  <motion.div
+                    key={phase.id}
+                    {...fadeUp}
+                    transition={{ delay: i * 0.1 }}
+                    className="flex flex-col items-center text-center"
+                  >
+                    <div className="relative flex h-6 items-center justify-center">
+                      <span
+                        className={`h-3 w-3 rotate-45 ${
+                          isDone
+                            ? "bg-primary"
+                            : isCurrent
+                            ? "bg-primary"
+                            : "border border-primary/30 bg-background"
+                        }`}
+                      />
+                      {isCurrent && (
+                        <span className="absolute h-5 w-5 rotate-45 border border-primary animate-pulse-dot" />
+                      )}
+                    </div>
+                    <span
+                      className={`mt-4 font-mono text-[10px] tracking-widest ${
+                        isCurrent ? "text-primary" : "text-muted-foreground/60"
+                      }`}
+                    >
+                      {phase.id}
+                    </span>
+                    <p
+                      className={`mt-1 font-mono text-xs tracking-widest ${
+                        isCurrent || isDone ? "text-foreground" : "text-muted-foreground"
+                      }`}
+                    >
+                      {phase.label}
+                    </p>
+                    <p className="mt-1 font-body text-xs text-muted-foreground leading-relaxed max-w-[9rem]">
+                      {phase.desc}
+                    </p>
+                    {isCurrent && (
+                      <span className="mt-2 inline-flex items-center gap-1.5 font-mono text-[9px] tracking-widest text-gain">
+                        <span className="h-1.5 w-1.5 rounded-full bg-gain animate-pulse-dot" />
+                        {phaseStatusLabel[phase.status].toUpperCase()}
+                      </span>
+                    )}
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile: vertical timeline spine */}
+        <div className="md:hidden relative ml-2 border-l border-primary/20 pl-6 space-y-7">
+          {timelinePhases.map((phase, i) => {
+            const isCurrent = phase.status === "current";
+            const isDone = phase.status === "done";
+            return (
+              <motion.div
+                key={phase.id}
+                initial={{ opacity: 0, x: -12 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08, duration: 0.45 }}
+                className="relative"
+              >
+                <span
+                  className={`absolute -left-[31px] top-1 h-3 w-3 rotate-45 ${
+                    isDone || isCurrent ? "bg-primary" : "border border-primary/30 bg-background"
+                  }`}
+                />
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-[10px] tracking-widest text-muted-foreground/60">{phase.id}</span>
+                  <p
+                    className={`font-mono text-xs tracking-widest ${
+                      isCurrent || isDone ? "text-foreground" : "text-muted-foreground"
+                    }`}
+                  >
+                    {phase.label}
+                  </p>
+                  {isCurrent && (
+                    <span className="inline-flex items-center gap-1 font-mono text-[9px] tracking-widest text-gain">
+                      <span className="h-1.5 w-1.5 rounded-full bg-gain animate-pulse-dot" />
+                      {phaseStatusLabel[phase.status].toUpperCase()}
+                    </span>
+                  )}
+                </div>
+                <p className="mt-1 font-body text-xs text-muted-foreground leading-relaxed">{phase.desc}</p>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
